@@ -1,8 +1,22 @@
 import {useState} from 'react'
+import { languages } from '../languages'
+import {nanoid} from 'nanoid'
+const language = languages.map((lang)=>{
+ return <span className='lang' key={nanoid()} style={{backgroundColor:lang.backgroundColor,color:lang.color}}>{lang.name}</span>
+})
+
 
 function Eliminations() {
   return (
-    <div>Eliminations</div>
+    <>
+    <section className="notice">
+        <p>"FareWell HTML & CSS"🫡</p>
+    </section>
+    <section className='eliminations'>
+      {language}
+    </section>
+    </>
+    
   )
 }
 

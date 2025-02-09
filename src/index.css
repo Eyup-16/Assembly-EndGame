@@ -13,17 +13,93 @@ body {
   justify-content: center;
 }
 
+main{
+  display: grid;
+  grid-template-rows: auto;
+  gap: 1rem;
+  max-width: 350px;
+  /* width: 100%; */
+}
 /* Header Styling */
 
 .header {
   text-align: center;
-  max-width: 350px;
-  max-height: 150px;
-  line-height: 1.5;
+  line-height: 1.2;
   display: flex;
   flex-direction: column;
 }
 
+
+/* Eliminations Style */
+
+.eliminations{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
 .notice {
   background-color: #7A5EA7;
+  text-align: center;
+}
+
+.lang{
+  padding: 4px;
+  border-radius: 4px;
+  margin: 2px;
+}
+
+
+/* Letters Styling */
+
+.letters-container{
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+
+.letter {
+  background-color: #323232;
+  color: #F9F4DA;
+  border-bottom: #F9F4DA solid 1px;
+  height: 40px;
+  width: 40px;
+  padding: 6px;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+
+/* Board Styling */
+/* Still max-width issue on the keyboard letters */
+.keyboard-container{
+  display: flex;
+  flex-wrap: wrap ;
+  gap: .5rem;
+  max-width: 480px;
+  width: 100%;
+  margin-top: 1.2rem;
+  justify-content: center;
+  grid-column: 1 / -1;
+}
+
+.board-letter{
+  width: 40px;
+  height: 40px;
+  background-color: #FCBA29;
+  color: #1E1E1E;
+  border: #D7D7D7 solid 1px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+.board-letter:focus{
+  background-color: #10A95B;
 }
