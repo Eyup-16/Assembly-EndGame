@@ -100,8 +100,12 @@ main{
   cursor: pointer;
 }
 
-.board-letter:focus{
+.correct{
   background-color: #10A95B;
+}
+
+.incorrect{
+  background-color: #d62727;
 }
 
 

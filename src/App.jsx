@@ -28,6 +28,12 @@ console.log('parent',word);
           setMistake(prev => prev + 1);
           console.log(mistake);
         }
+
+        const className = clsx('board-letter',{
+          correct:guessedLetter.includes(letter),
+          incorrect:!guessedLetter.includes(letter)
+         })
+
       };
 
       function restGame() {
@@ -41,7 +47,7 @@ console.log('parent',word);
             <Eliminations mistakes={mistake}/>
             {/* Try to see another solution to re-render in place of key  prop that forcing rerendering */}
             <Letters key={word} word={word} guessedLetters={guessedLetter}/>
-            <Board guessedLetters= {guessedLetter} OnLetterClick={addGuessedLetter} disable={isGameOver}/>
+            <Board  guessedLetters= {guessedLetter} OnLetterClick={addGuessedLetter} disable={isGameOver}/>
             {isGameOver && <button onClick={restGame} className="new-game">New Game</button>}
             {isGameWon && <p>You win! 🎉</p>}
              {isGameLost && <p>You lose! The word was: {word}</p>} 

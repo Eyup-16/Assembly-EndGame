@@ -6,7 +6,7 @@ const language = languages.map((lang)=>{
 })
 
 
-function Eliminations() {
+function Eliminations(props) {
   return (
     <>
     <section className="notice">
