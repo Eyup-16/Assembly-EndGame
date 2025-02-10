@@ -33,6 +33,7 @@ export const words = [
     "before",
     "behaviour",
     "belief",
+    "belkis",
     "berry",
     "between",
     "birth",
