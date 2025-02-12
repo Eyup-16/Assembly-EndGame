@@ -1,18 +1,20 @@
-import {useEffect, useRef, useState} from 'react'
 import clsx from 'clsx'
 
 function Board(props) {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz'
   const alphabetArray = alphabet.split('')
 
-
-  const keyboard = alphabetArray.map((letter,index)=> {
-    return <button disabled={props.guessedLetters.includes(letter) || props.disable}
+  const keyboard = alphabetArray.map((letter)=> {
+    const isGuessed = props.guessedLetters.includes(letter)
+    const isCorrect = isGuessed &&  props.word.includes(letter)
+    const isWrong = isGuessed && !props.word.includes(letter) 
+    // console.log(isGuessed , '+', isCorrect , '+' , isWrong);
+    return <button disabled={isGuessed || props.disable}
                    onClick={()=> props.OnLetterClick(letter)}
-                   key={index}
-                   className={clsx('board-letter',{
-                    correct:props.guessedLetters.includes(letter),
-                    incorrect:props.guessedLetters.length > 0 &&!props.guessedLetters.includes(letter)
+                   key={letter}
+                   className={clsx('keyboardBtn',{
+                    correct:isCorrect,
+                    incorrect:isWrong
                    })}
                    aria-label={`Guess letter ${letter}`}>
                     {letter.toUpperCase()}
@@ -25,5 +27,4 @@ function Board(props) {
     </section>
   )
 }
-
 export default Board
