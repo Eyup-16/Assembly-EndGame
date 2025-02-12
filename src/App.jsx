@@ -4,6 +4,7 @@ import Eliminations from "./components/Eliminations"
 import Letters from "./components/Letters"
 import Board from "./components/Board"
 import { getRandomWord } from "./utilis"
+import Confetti from "react-confetti"
 
 export default function Hangman() {
     const [guessedLetter,setGuessedLetter]=useState([])
@@ -40,6 +41,7 @@ export default function Hangman() {
       }
     return (
         <main>
+            {isGameWon && <Confetti />}
             <Header/>
             <Eliminations mistakes={mistake} lost={isGameLost} won={isGameWon} gameOver={isGameOver}  isLastGuessIncorrect={isLastGuessIncorrect}/>
             {/* Try to see another solution to re-render in place of key prop that forcing rerendering */}
