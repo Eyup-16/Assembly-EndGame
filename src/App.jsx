@@ -7,17 +7,19 @@ import { getRandomWord } from "./utilis"
 
 export default function Hangman() {
     const [guessedLetter,setGuessedLetter]=useState([])
-    const [word,setWord] =useState(()=>getRandomWord())
+    const [word,setWord] =useState(()=>getRandomWord()) // avoiding unnecessary re-renders
     const [mistake,setMistake]=useState(0)
-console.log('parent',word);
     // derived variables
     const maxMistakes = 8;
-    const correctLetter = word.split('').filter((letter)=>guessedLetter.includes(letter)) // if letter exist on gussed array
+    const correctLetter =word.split('').filter((letter)=>guessedLetter.includes(letter)) // will return an array
+    const correctLetter2=word.split('').every((letter)=>guessedLetter.includes(letter)) // will return true or false
     const isGameLost = mistake>= maxMistakes;
     const isGameWon = correctLetter.length === word.length;
     const isGameOver = isGameWon || isGameLost
-    // const isGameWon = a
-    // console.log(typeof(correctLetter));
+    const lastGuessedLetter = guessedLetter[guessedLetter.length - 1]
+    const isLastGuessIncorrect = lastGuessedLetter && !word.includes(lastGuessedLetter)
+    // const MissedsLetter = word.split('').filter((letter)=>!correctLetter.includes(letter)) // Available for use
+
 
     function addGuessedLetter (letter){
         if (guessedLetter.includes(letter) || isGameOver) return 
@@ -26,16 +28,11 @@ console.log('parent',word);
         // Update mistakes if the guess is wrong
         if (!word.includes(letter)) {
           setMistake(prev => prev + 1);
-          console.log(mistake);
+          // console.log(mistake);
         }
 
-        const className = clsx('board-letter',{
-          correct:guessedLetter.includes(letter),
-          incorrect:!guessedLetter.includes(letter)
-         })
-
       };
-
+      // Reset Game function
       function restGame() {
         setMistake(0)
         setGuessedLetter([])
@@ -44,13 +41,11 @@ console.log('parent',word);
     return (
         <main>
             <Header/>
-            <Eliminations mistakes={mistake}/>
-            {/* Try to see another solution to re-render in place of key  prop that forcing rerendering */}
-            <Letters key={word} word={word} guessedLetters={guessedLetter}/>
-            <Board  guessedLetters= {guessedLetter} OnLetterClick={addGuessedLetter} disable={isGameOver}/>
+            <Eliminations mistakes={mistake} lost={isGameLost} won={isGameWon} gameOver={isGameOver}  isLastGuessIncorrect={isLastGuessIncorrect}/>
+            {/* Try to see another solution to re-render in place of key prop that forcing rerendering */}
+            <Letters key={word} word={word} guessedLetters={guessedLetter} gameLost={isGameLost}/>
+            <Board  word={word} guessedLetters= {guessedLetter} OnLetterClick={addGuessedLetter} disable={isGameOver}/>
             {isGameOver && <button onClick={restGame} className="new-game">New Game</button>}
-            {isGameWon && <p>You win! 🎉</p>}
-             {isGameLost && <p>You lose! The word was: {word}</p>} 
         </main>
     )
 }
