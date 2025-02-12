@@ -1,14 +1,16 @@
-import {useState} from 'react'
-
 function Letters(props) {
-  const [currentWord,setCurrentWord] = useState(props.word)
-  // console.log(props.word);
-  const wordArray = currentWord.split('')
-console.log('child',currentWord);
+  const wordArray = props.word.split('')
   const wordElements = wordArray.map((letter,index)=>{
-   return <span key={index} 
-                className='letter'>
-              {props.guessedLetters.includes(letter)?letter.toUpperCase():'-'}
+    const isGuessed = props.guessedLetters.includes(letter)
+    const isMissed = !isGuessed && props.gameLost
+   return <span key={index}
+              style={{color:isMissed&&'#d62727'}} 
+             className='letter'>
+             {isGuessed
+             ?letter.toUpperCase()
+             :props.gameLost?
+             letter.toUpperCase()
+             :'-'}
           </span>
   })
   return (
@@ -17,5 +19,4 @@ console.log('child',currentWord);
     </section>
   )
 }
-
 export default Letters
